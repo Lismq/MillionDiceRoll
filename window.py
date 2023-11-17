@@ -33,10 +33,36 @@ class MillionDiceRoll(QMainWindow):
 
         central_widget.setStyleSheet("background-color: rgb(192, 192, 192);")
 
+    def check_field(self) -> bool:
+        txt = self.input_field.text().strip()
+
+        if txt == '':
+            self.errors('Поле должно содержать число')
+            return False    
+        
+        elif len(txt.split()) > 1:
+            self.errors('В поле не должно быть больше одного числа')
+            return False
+
+        elif not txt.isdigit():
+            self.errors('В поле должны быть только числа')
+            return False
+        
+        return True
+
+    def errors(self,error_msg:str ):
+        self.field_to_see_answer.setStyleSheet('color: red;')
+        self.field_to_see_answer.setText(error_msg)
+
+
     def button_event(self):
         self.button.clicked.connect(self.simulation)
 
     def simulation(self):
+
+        if not self.check_field():
+            return 0
+
         numberOfDice = int(self.input_field.text())
         # Set up a dictionary to store the results of each dice roll:
         results = {}
