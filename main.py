@@ -1,6 +1,6 @@
 import sys
 
-from window import *
+from window import MillionDiceRoll
 
 from PyQt6.QtWidgets import QApplication
 
